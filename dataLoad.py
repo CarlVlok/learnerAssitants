@@ -4,10 +4,10 @@ import pymupdf
 import os
 import time
 
-start_time = time.time()
+
 
 base_dir = os.getcwd()
-class loadData:
+class dataLoad():
     def getPresText(self, file_path):
         prs = Presentation(file_path)
         text = []
@@ -47,6 +47,7 @@ class loadData:
         return pdftxt
 
     def loadAll(self):
+        start_time = time.time()
         results = [None, None]
         
         threads = [
@@ -69,18 +70,16 @@ class loadData:
         ppt = results[0]
         pdf = results[1]
         
+        
+        sum_val = 0
+        for i in range(1000000):
+            sum_val += i
+
+        end_time = time.time()
+        elapsed_time = end_time - start_time
+
+        print(f"loadAll time: {round(elapsed_time,3)} seconds")
         return ppt, pdf
         
-ld = loadData()
-data = ld.loadAll()
-
-
 """CHECKING RUNTIME FOR OPTOMISATION"""
-sum_val = 0
-for i in range(1000000):
-    sum_val += i
 
-end_time = time.time()
-elapsed_time = end_time - start_time
-
-print(f"Elapsed Time: {elapsed_time} seconds")
