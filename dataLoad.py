@@ -2,6 +2,9 @@ from pptx import Presentation
 import threading
 import pymupdf
 import os
+import time
+
+start_time = time.time()
 
 base_dir = os.getcwd()
 class loadData:
@@ -36,7 +39,8 @@ class loadData:
         ls = os.listdir("data/studyGuides")
         pdftxt = []
         for file in ls:
-            print("File:", file)
+            if not file.lower().endswith('.pdf'):
+                continue
             fp = os.path.join(base_dir, 'data/studyGuides', file)
             txt = self.getPDFtxt(fp)
             pdftxt.append({"File": file, "Content": txt})
@@ -71,10 +75,12 @@ ld = loadData()
 data = ld.loadAll()
 
 
+"""CHECKING RUNTIME FOR OPTOMISATION"""
+sum_val = 0
+for i in range(1000000):
+    sum_val += i
 
-# print(p.getPDFtxt("data/studyGuides/ISP152 Study Guide 2025.pdf"))
+end_time = time.time()
+elapsed_time = end_time - start_time
 
-
-
-
-# print(extract_text_from_pptx("data/ppSlides/ISP152 - Topic 1 slides.pptx"))
+print(f"Elapsed Time: {elapsed_time} seconds")
