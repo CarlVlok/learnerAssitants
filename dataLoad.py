@@ -8,6 +8,10 @@ import time
 
 base_dir = os.getcwd()
 class dataLoad():
+    def getModulePath(self, mod):
+        if mod=="FIT152":
+            return "data/modules/FIT152/"
+    
     def getPresText(self, file_path):
         prs = Presentation(file_path)
         text = []
@@ -26,36 +30,40 @@ class dataLoad():
             allText += page.get_text()
         return allText
     
-    def loadPowerP(self):
-        ls = os.listdir("data/ppSlides")
+    def loadPowerP(self, modPath):
+        fold = os.path.join(modPath , "ppSlides")
+        ls = os.listdir(fold) 
         ppText = [] 
         for file in ls:
-            fp = os.path.join(base_dir, 'data/ppSlides', file)
+            if not file.lower().endswith('.pptx'):
+                continue
+            fp = os.path.join(base_dir,fold, file)
             txt = self.getPresText(fp)
             ppText.append({"File": file, "Content": txt})
         return ppText
     
-    def loadPDF(self):
-        ls = os.listdir("data/studyGuides")
+    def loadPDF(self, modPath):
+        fold = os.path.join(modPath , "studyGuides")
+        ls = os.listdir(fold)
         pdftxt = []
         for file in ls:
             if not file.lower().endswith('.pdf'):
                 continue
-            fp = os.path.join(base_dir, 'data/studyGuides', file)
+            fp = os.path.join(base_dir,fold, file)
             txt = self.getPDFtxt(fp)
             pdftxt.append({"File": file, "Content": txt})
         return pdftxt
 
-    def loadAll(self):
+    def loadAll(self, modPath):
         start_time = time.time()
         results = [None, None]
         
         threads = [
             threading.Thread(
-                target=lambda: results.__setitem__(0, self.loadPowerP())
+                target=lambda: results.__setitem__(0, self.loadPowerP(modPath))
             ),
             threading.Thread(
-                target=lambda: results.__setitem__(1, self.loadPDF())
+                target=lambda: results.__setitem__(1, self.loadPDF(modPath))
             )
         ]
         
@@ -81,5 +89,9 @@ class dataLoad():
         print(f"loadAll time: {round(elapsed_time,3)} seconds")
         return ppt, pdf
         
-"""CHECKING RUNTIME FOR OPTOMISATION"""
+dl = dataLoad()
+
+mod = dl.getModulePath("FIT152")
+ppt, pdf = dl.loadAll(mod)
+print(ppt[0]['File'])
 
