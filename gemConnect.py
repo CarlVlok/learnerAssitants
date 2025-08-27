@@ -13,15 +13,15 @@ class QuestAnsw(BaseModel):
 
 _context_cache = None
 
-def get_context(): #Cache loadAll, so that each agent call does not have not process files again
+def get_context(modPath): #Cache loadAll, so that each agent call does not have not process files again
     global _context_cache
     if _context_cache is None:
         ld = dataLoad.dataLoad()
-        _context_cache = ld.loadAll()
+        _context_cache = ld.loadAll(modPath)
     return _context_cache
 
-def agent(prp):
-    context = get_context()
+def agent(prp, mp):
+    context = get_context(mp)
     client = genai.Client(api_key=os.getenv('GEMINI_API'))
     if prp != None:
         response = client.models.generate_content(
@@ -32,8 +32,8 @@ def agent(prp):
                 "response_schema": list[QuestAnsw],
             },
         )
-
-        return response.text
+        output: list[QuestAnsw] = response.parsed
+        return output
     else:
         print("No input and/or context given")
 

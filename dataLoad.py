@@ -89,9 +89,5 @@ class dataLoad():
         print(f"loadAll time: {round(elapsed_time,3)} seconds")
         return ppt, pdf
         
-dl = dataLoad()
 
-mod = dl.getModulePath("FIT152")
-ppt, pdf = dl.loadAll(mod)
-print(ppt[0]['File'])
 
