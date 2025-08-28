@@ -18,5 +18,3 @@ class fileChat():
             file.write("Hello world")
             
 
-c = fileChat("Carl", 1, "I dont know man")
-c.newChat()

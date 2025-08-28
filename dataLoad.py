@@ -11,6 +11,8 @@ class dataLoad():
     def getModulePath(self, mod):
         if mod=="FIT152":
             return "data/modules/FIT152/"
+        elif mod=="ISP152":
+            return "data/modules/ISP152"
     
     def getPresText(self, file_path):
         prs = Presentation(file_path)
@@ -54,16 +56,17 @@ class dataLoad():
             pdftxt.append({"File": file, "Content": txt})
         return pdftxt
 
-    def loadAll(self, modPath):
+    def loadAll(self, module):
+        mod = self.getModulePath(module)
         start_time = time.time()
         results = [None, None]
         
         threads = [
             threading.Thread(
-                target=lambda: results.__setitem__(0, self.loadPowerP(modPath))
+                target=lambda: results.__setitem__(0, self.loadPowerP(mod))
             ),
             threading.Thread(
-                target=lambda: results.__setitem__(1, self.loadPDF(modPath))
+                target=lambda: results.__setitem__(1, self.loadPDF(mod))
             )
         ]
         

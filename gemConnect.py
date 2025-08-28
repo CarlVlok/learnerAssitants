@@ -13,11 +13,11 @@ class QuestAnsw(BaseModel):
 
 _context_cache = None
 
-def get_context(modPath): #Cache loadAll, so that each agent call does not have not process files again
+def get_context(module): #Cache loadAll, so that each agent call does not have not process files again
     global _context_cache
     if _context_cache is None:
         ld = dataLoad.dataLoad()
-        _context_cache = ld.loadAll(modPath)
+        _context_cache = ld.loadAll(module)
     return _context_cache
 
 def agent(prp, mp):

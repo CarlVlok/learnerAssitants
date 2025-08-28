@@ -1,9 +1,16 @@
 import gemConnect as gc
-import chat
+from chat import fileChat
 
-output = gc.agent("What is the main theme of all given context", "FIT152")
+input = "What is the main theme of all given context"
+module = "FIT152"
+user="Carl"
+chat=1
+output = gc.agent(input, module)
 
 print(output)
 
-# c = chat.fileChat("Carl", )
+c = chat.filechat(user, input)
+
+c.newChat()
+
 
