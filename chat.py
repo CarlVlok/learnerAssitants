@@ -64,8 +64,7 @@ class Chat():
                         break
         return output
             
-c = Chat("Peter", True)
-print(c.getAllChatsForMenu())
+# c = Chat("Peter", True)
 # conv = {'question': 'this is a question', 'answer': 'This is the asnwer'}
 # c.writeToChat(conv,"Cmanywoods?")
 

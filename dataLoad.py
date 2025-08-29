@@ -13,6 +13,14 @@ class dataLoad():
             return "data/modules/FIT152/"
         elif mod=="ISP152":
             return "data/modules/ISP152"
+        elif mod=="IDB152":
+            return "data/modules/IDB152"
+        elif mod=="OOP152":
+            return "data/modules/OOP152"
+        elif mod=="SEN152":
+            return "data/modules/SEN152"
+        elif mod=="TAS152":
+            return "data/modules/TAS152"
     
     def getPresText(self, file_path):
         prs = Presentation(file_path)
@@ -25,18 +33,11 @@ class dataLoad():
 
         return "\n".join(text)
 
-    def getPDFtxt(self, module):
-        folder = os.listdir(f"data/modules/{module}/studyGuides")
-        for file in folder:
-            if file != '.DS_Store':
-                try:
-                    doc = pymupdf.open(f"data/modules/{module}/studyGuides/{file}")
-                    allText = ''
-                    for page in doc:
-                        allText += page.get_text()
-                except FileNotFoundError:
-                    print(f"Cannot find file: {file}")
-        print("Succesfully loaded pdfs...")
+    def getPDFtxt(self, file_path):
+        doc = pymupdf.open(file_path)
+        allText = ""
+        for page in doc:
+            allText += page.get_text()
         return allText
     
     def loadPowerP(self, modPath):
@@ -98,6 +99,7 @@ class dataLoad():
 
         print(f"Loading All data time: {round(elapsed_time,3)} seconds...")
         return ppt, pdf
-        
+    
+    
 
 
