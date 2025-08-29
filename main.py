@@ -9,6 +9,15 @@ import dataLoad as dl
 # code = c.newChat(response[0]['question'], response[0]['answer'])
 
 
+def login():
+    name=input("Enter your name: ")
+    module=input("Enter your module: ")
+    new = input("Are you new [y/n]:").lower()
+    if new=='y' or new=='yes':
+        return module, name, True
+    elif new=='n' or new=='no':
+        return module, name, False
+
 
 def mainMenu(module, user, new):
     bot = gc.agent()
@@ -26,7 +35,8 @@ def mainMenu(module, user, new):
             print("Enter a number!")
 
 
-mainMenu('FIT152', 'Carl', True)
+res = login()
+mainMenu(res)
 
         
     
