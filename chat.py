@@ -43,9 +43,12 @@ class Chat():
         except FileNotFoundError:
             print(f"Unable to find file at {fp}")
     
+    def getAllCodes(self):
+        codes = os.listdir(self.workingDirec)
+        return codes
 
             
-c = Chat("Carl", False)
+# c = Chat("Carl", False)
 # conv = {'question': 'this is a question', 'answer': 'This is the asnwer'}
 # c.writeToChat(conv,"Cmanywoods?")
 
@@ -54,3 +57,5 @@ c = Chat("Carl", False)
 # conv2 = {'question': 'QQQQQQ QQQQ QQQQ', 'answer': 'AAAAAAAA AAAA AAAA'}
 # secCode = c.newChat(conv2['question'], conv2['answer'])
 # c.writeToChat(conv2, secCode) #Is gonna print another entry into secCode
+
+
