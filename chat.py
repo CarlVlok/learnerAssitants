@@ -2,19 +2,55 @@ import os
 
 
 
-class fileChat():
-    def __init__(self, user, topic):
-        self.fp = os.path.join(os.getcwd()+"/data/chats")
+class Chat():
+    def __init__(self, user, new):
         self.user = user
-        self.topic = topic
+        if new==True:
+            try:
+                self.workingDirec = f"data/chats/{self.user}Chats"
+                os.mkdir(self.workingDirec)
+                print("Directory Succesfully created")
+            except FileExistsError:
+                print(f"File for {self.user} already exists")
+        elif new==False:
+            try:
+                self.workingDirec = f"data/chats/{self.user}Chats"
+                print(f"Using {self.workingDirec} as working directory")
+            except FileNotFoundError:
+                print(f"File path for {self.user} not found\nGiven Directory: {self.workingDirec}")
         
-    def genCode(self, user, chat, topic):
+    def genCode(self, topic):
         newT = topic.split()
-        return user[0]+ str(chat)+ newT[1] + newT[2]
+        return self.user[0]+ newT[1] + newT[2]
     
-    def newChat(self):
-        fp = f"{self.fp}/{fileChat.genCode(self, self.user, self.chat, self.topic)}"
+    def newChat(self, que, ans):
+        code = Chat.genCode(self, que)
+        fp = f"{self.workingDirec}/{code}"
         with open(fp, 'w') as file:
-            file.write("Hello world")
+            file.write('question: '+que+ '\n')
+            file.write('answer: '+ans+ '\n')
+            print(f"Succesfully written in {fp}")
+        file.close()
+        return code
             
+    def writeToChat(self, conv ,code):
+        try:
+            fp = f"data/chats/{self.user}Chats/{code}"
+            with open(fp, 'a') as file:
+                file.write('question: '+conv['question']+ '\n')
+                file.write('answer: '+conv['answer']+ '\n')
+                print(f"Succesfully written to {code} ")
+        except FileNotFoundError:
+            print(f"Unable to find file at {fp}")
+    
 
+            
+c = Chat("Carl", False)
+# conv = {'question': 'this is a question', 'answer': 'This is the asnwer'}
+# c.writeToChat(conv,"Cmanywoods?")
+
+# firstCode = c.newChat(conv['question'], conv['answer']) #Writes into cisa
+
+# conv2 = {'question': 'QQQQQQ QQQQ QQQQ', 'answer': 'AAAAAAAA AAAA AAAA'}
+# secCode = c.newChat(conv2['question'], conv2['answer'])
+# c.writeToChat(conv2, secCode) #Is gonna print another entry into secCode

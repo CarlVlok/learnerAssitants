@@ -13,30 +13,30 @@ class QuestAnsw(BaseModel):
 
 _context_cache = None
 
-def get_context(module): #Cache loadAll, so that each agent call does not have not process files again
-    global _context_cache
-    if _context_cache is None:
-        ld = dataLoad.dataLoad()
-        _context_cache = ld.loadAll(module)
-    return _context_cache
+class agent():
+    def get_context(self,module): #Cache loadAll, so that each agent call does not have not process files again
+        global _context_cache
+        if _context_cache is None:
+            ld = dataLoad.dataLoad()
+            _context_cache = ld.loadAll(module)
+            print("Context succesfully cached")
+        return _context_cache
 
-def agent(prp, mp):
-    context = get_context(mp)
-    client = genai.Client(api_key=os.getenv('GEMINI_API'))
-    if prp != None:
-        response = client.models.generate_content(
-            model="gemini-2.5-flash",
-            contents=f"Using the content from {context}, return the prompt given by the user {prp} and the answer",
-            config={
-                "response_mime_type": "application/json",
-                "response_schema": list[QuestAnsw],
-            },
-        )
-        output: list[QuestAnsw] = response.parsed
-        return output
-    else:
-        print("No input and/or context given")
-
-
-
-#output: list[QuestAnsw] = response.parsed
+    def query(self,prp, module):
+        context = self.get_context(module)
+        client = genai.Client(api_key=os.getenv('GEMINI_API'))
+        if prp is not None:
+            response = client.models.generate_content(
+                model="gemini-2.5-flash",
+                contents=f"Using the context:\n{context} answer the users {prp}",
+                config={
+                    "response_mime_type": "application/json",
+                    "response_schema": list[QuestAnsw],
+                },
+            )
+            output: list[QuestAnsw] = response.parsed
+            dict_list = [m.model_dump() for m in output]
+            print("Succesfully prompted and recieved a response")
+            return dict_list
+        else:
+            print("No input and/or context given")
