@@ -26,17 +26,31 @@ def mainMenu(module, user, new):
     while option!="3":
         print("MAIN MENU\n")
         try:
-            option= int(input("1: NewChat\n2:ExistingChat\n3: Exit\nSelect an option"))
+            option= int(input("[1] NewChat\n[2]ExistingChat\n[3] Exit\nSelect an option: "))
             if option==1:
                 prompt = input("Enter your prompt:\n")
                 response = bot.query(prompt, module)
-                code = c.newChat(response[0]['question'], response[0]['answer'])
+                c.newChat(response[0]['question'], response[0]['answer'])
+            elif option==2:
+                prev = c.getAllChatsForMenu()
+                print("Previous chats\n")
+                for i in prev:
+                    print(f"[{i['id'] +1}] {i['question']}")
+                print(f"[{len(prev) + 1}] Exit")
+                prevOption = input("Select your option: ")
+                
+                
+            elif option==3:
+                break
+            else:
+                return "Unexpected error occured, please try again"    
+            
         except ValueError:
             print("Enter a number!")
 
 
-res = login()
-mainMenu(res)
+m, n, ne = login()
+mainMenu(m, n, ne)
 
         
     

@@ -46,9 +46,26 @@ class Chat():
     def getAllCodes(self):
         codes = os.listdir(self.workingDirec)
         return codes
-
+    
+    def getAllChatsForMenu(self):
+        chats = self.getAllCodes()
+        if len(chats) == 0:
+            return "Cannot find any previous chats"
+        count = 0
+        fp = f"data/chats/{self.user}Chats/"
+        output = []
+        for chat in chats:
+            with open((fp+chat), 'r') as file:
+                for line in file:
+                    if line.lower().startswith('question:'):
+                        qtext = line.split(":", 1)[1].strip()
+                        output.append({'id': count, 'question': qtext})
+                        count+=1
+                        break
+        return output
             
-# c = Chat("Carl", False)
+c = Chat("Peter", True)
+print(c.getAllChatsForMenu())
 # conv = {'question': 'this is a question', 'answer': 'This is the asnwer'}
 # c.writeToChat(conv,"Cmanywoods?")
 
@@ -57,5 +74,4 @@ class Chat():
 # conv2 = {'question': 'QQQQQQ QQQQ QQQQ', 'answer': 'AAAAAAAA AAAA AAAA'}
 # secCode = c.newChat(conv2['question'], conv2['answer'])
 # c.writeToChat(conv2, secCode) #Is gonna print another entry into secCode
-
 

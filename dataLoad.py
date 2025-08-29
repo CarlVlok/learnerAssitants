@@ -25,11 +25,18 @@ class dataLoad():
 
         return "\n".join(text)
 
-    def getPDFtxt(self, file_path):
-        doc = pymupdf.open(file_path)
-        allText = ""
-        for page in doc:
-            allText += page.get_text()
+    def getPDFtxt(self, module):
+        folder = os.listdir(f"data/modules/{module}/studyGuides")
+        for file in folder:
+            if file != '.DS_Store':
+                try:
+                    doc = pymupdf.open(f"data/modules/{module}/studyGuides/{file}")
+                    allText = ''
+                    for page in doc:
+                        allText += page.get_text()
+                except FileNotFoundError:
+                    print(f"Cannot find file: {file}")
+        print("Succesfully loaded pdfs...")
         return allText
     
     def loadPowerP(self, modPath):
