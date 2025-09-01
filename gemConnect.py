@@ -20,17 +20,16 @@ class agent():
         if _context_cache is None:
             ld = dataLoad.dataLoad()
             _context_cache = ld.loadAll(module)
-            print("-----Context succesfully cached...-----")
         return _context_cache
 
-    def query(self,prp, module):
+    def query(self,prp, module, chat):
         start_time = time.time()
         context = self.get_context(module)
         client = genai.Client(api_key=os.getenv('GEMINI_API'))
         if prp is not None:
             response = client.models.generate_content(
                 model="gemini-2.5-flash",
-                contents=f"Using the context:\n{context} answer the users prompt: {prp}. Use the user prompt as 'question'",
+                contents=f"Using the context:\n{context}, and the current chat: {chat} answer the users prompt: {prp}. Use the user prompt as 'question'",
                 config={
                     "response_mime_type": "application/json",
                     "response_schema": list[QuestAnsw],

@@ -25,7 +25,7 @@ class Chat():
     
     def writeToNewChat(self, que, ans):
         code = Chat.genCode(self, que)
-        fp = f"{self.workingDirec}/{code}"
+        fp = f"{self.workingDirec}/{code}.txt"
         with open(fp, 'w') as file:
             file.write('question: '+que+ '\n')
             file.write('answer: '+ans+ '\n')
@@ -35,10 +35,10 @@ class Chat():
             
     def writeToChat(self, conv ,code):
         try:
-            fp = f"data/chats/{self.user}Chats/{code}"
+            fp = f"data/chats/{self.user}Chats/{code}.txt"
             with open(fp, 'a') as file:
-                file.write('question: '+conv['question']+ '\n')
-                file.write('answer: '+conv['answer']+ '\n')
+                file.write('question: '+conv[0]+ '\n')
+                file.write('answer: '+conv[1]+ '\n')
                 print(f"-----Succesfully written to {code}-----")
         except FileNotFoundError:
             print(f"-----ERROR:Unable to find file at {fp}-----")

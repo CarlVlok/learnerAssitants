@@ -1,7 +1,6 @@
 import gemConnect as gc
 import chat
 import dataLoad as dl
-import os
 
 def login():
     name=input("Enter your name: ")
@@ -22,18 +21,31 @@ def mainMenu(module, user, new):
             option= int(input("[1] NewChat\n[2]ExistingChat\n[3] Exit\nSelect an option: "))
             if option==1:
                 prompt = ""
-                while prompt!="Exit":
-                    prompt = input("Enter your prompt:\n")
-                    response = bot.query(prompt, module)
-                    print(f"{response[0]['question']}, {response[0]['answer']}")
-                    c.writeToNewChat(response[0]['question'], response[0]['answer'])
+                ans = []
+                prompt = input("Enter your prompt:\n")
+                if prompt!="Exit":
+                    response = bot.query(prompt, module,ans)
+                    print(f"\nResponse: {response[0]['answer']}")
+                    code = c.writeToNewChat(response[0]['question'], response[0]['answer'])
+                    ans.append((response[0]['question'], response[0]['answer']))
+                    while True:
+                        prompt = input("Enter your prompt:\n")
+                        if prompt!="Exit":
+                            response = bot.query(prompt, module,ans)
+                            print(f"\nResponse: {response[0]['answer']}")
+                            conv = [response[0]['question'], response[0]['answer']]
+                            c.writeToChat(conv, code)
+                            ans.append((response[0]['question'], response[0]['answer']))
+                        else:
+                            break
+                        
             elif option==2:
                 prev = c.getAllChatsForMenu()
                 print("Previous chats\n")
                 for i in prev:
                     print(f"[{i['id'] +1}] {i['question']}")
                 print(f"[{len(prev) + 1}] Exit")
-                prevOption = input("Select your option: ")
+                prevOption = input("Select a chat: ")
                 
                 
             elif option==3:
