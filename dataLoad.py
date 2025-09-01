@@ -97,7 +97,7 @@ class dataLoad():
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print(f"Loading All data time: {round(elapsed_time,3)} seconds...")
+        print(f"-----Loading All data time: {round(elapsed_time,3)} seconds...-----")
         return ppt, pdf
     
     

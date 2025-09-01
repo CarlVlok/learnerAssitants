@@ -9,27 +9,27 @@ class Chat():
             try:
                 self.workingDirec = f"data/chats/{self.user}Chats"
                 os.mkdir(self.workingDirec)
-                print("Directory Succesfully created")
+                print("-----Directory Succesfully created-----")
             except FileExistsError:
-                print(f"File for {self.user} already exists")
+                print(f"-----ERROR:File for {self.user} already exists-----")
         elif new==False:
             try:
                 self.workingDirec = f"data/chats/{self.user}Chats"
-                print(f"Using {self.workingDirec} as working directory")
+                print(f"-----Using {self.workingDirec} as working directory-----")
             except FileNotFoundError:
-                print(f"File path for {self.user} not found\nGiven Directory: {self.workingDirec}")
+                print(f"-----ERROR:File path for {self.user} not found\nGiven Directory: {self.workingDirec}-----")
         
     def genCode(self, topic):
         newT = topic.split()
         return self.user[0]+ newT[1] + newT[2]
     
-    def newChat(self, que, ans):
+    def writeToNewChat(self, que, ans):
         code = Chat.genCode(self, que)
         fp = f"{self.workingDirec}/{code}"
         with open(fp, 'w') as file:
             file.write('question: '+que+ '\n')
             file.write('answer: '+ans+ '\n')
-            print(f"Succesfully written in {fp}")
+            print(f"-----Succesfully written in {fp}-----")
         file.close()
         return code
             
@@ -39,9 +39,9 @@ class Chat():
             with open(fp, 'a') as file:
                 file.write('question: '+conv['question']+ '\n')
                 file.write('answer: '+conv['answer']+ '\n')
-                print(f"Succesfully written to {code} ")
+                print(f"-----Succesfully written to {code}-----")
         except FileNotFoundError:
-            print(f"Unable to find file at {fp}")
+            print(f"-----ERROR:Unable to find file at {fp}-----")
     
     def getAllCodes(self):
         codes = os.listdir(self.workingDirec)
@@ -63,7 +63,15 @@ class Chat():
                         count+=1
                         break
         return output
-            
+                
+    def getAllText(self, code):
+        folder = os.listdir("data/chats")
+        for f in folder:
+            if f == code:
+                file = f
+            else:
+                print(f"{code} has not been found")
+                
 # c = Chat("Peter", True)
 # conv = {'question': 'this is a question', 'answer': 'This is the asnwer'}
 # c.writeToChat(conv,"Cmanywoods?")

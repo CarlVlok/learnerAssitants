@@ -1,2 +1,0 @@
-question: What is a void method?
-answer: A void method is a method that does not return any value. Its return type is explicitly declared as `void`. These methods typically perform actions, such as printing output or modifying data, rather than computing and returning a value. The `main` method, which is the entry point of a Java program, is a common example of a void method.

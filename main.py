@@ -1,13 +1,7 @@
 import gemConnect as gc
 import chat
 import dataLoad as dl
-
-
-# bot = gc.agent()
-# response = bot.query(input, module)
-# c = chat.Chat(user, True)
-# code = c.newChat(response[0]['question'], response[0]['answer'])
-
+import os
 
 def login():
     name=input("Enter your name: ")
@@ -18,7 +12,6 @@ def login():
     elif new=='n' or new=='no':
         return module, name, False
 
-
 def mainMenu(module, user, new):
     bot = gc.agent()
     c = chat.Chat(user, new)
@@ -28,9 +21,12 @@ def mainMenu(module, user, new):
         try:
             option= int(input("[1] NewChat\n[2]ExistingChat\n[3] Exit\nSelect an option: "))
             if option==1:
-                prompt = input("Enter your prompt:\n")
-                response = bot.query(prompt, module)
-                c.newChat(response[0]['question'], response[0]['answer'])
+                prompt = ""
+                while prompt!="Exit":
+                    prompt = input("Enter your prompt:\n")
+                    response = bot.query(prompt, module)
+                    print(f"{response[0]['question']}, {response[0]['answer']}")
+                    c.writeToNewChat(response[0]['question'], response[0]['answer'])
             elif option==2:
                 prev = c.getAllChatsForMenu()
                 print("Previous chats\n")
@@ -47,6 +43,8 @@ def mainMenu(module, user, new):
             
         except ValueError:
             print("Enter a number!")
+
+
 
 
 m, n, ne = login()

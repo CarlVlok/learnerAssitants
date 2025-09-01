@@ -20,7 +20,7 @@ class agent():
         if _context_cache is None:
             ld = dataLoad.dataLoad()
             _context_cache = ld.loadAll(module)
-            print("Context succesfully cached...")
+            print("-----Context succesfully cached...-----")
         return _context_cache
 
     def query(self,prp, module):
@@ -30,7 +30,7 @@ class agent():
         if prp is not None:
             response = client.models.generate_content(
                 model="gemini-2.5-flash",
-                contents=f"Using the context:\n{context} answer the users {prp}",
+                contents=f"Using the context:\n{context} answer the users prompt: {prp}. Use the user prompt as 'question'",
                 config={
                     "response_mime_type": "application/json",
                     "response_schema": list[QuestAnsw],
