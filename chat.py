@@ -35,7 +35,7 @@ class Chat():
             
     def writeToChat(self, conv ,code):
         try:
-            fp = f"data/chats/{self.user}Chats/{code}.txt"
+            fp = f"data/chats/{self.user}Chats/{code}"
             with open(fp, 'a') as file:
                 file.write('question: '+conv[0]+ '\n')
                 file.write('answer: '+conv[1]+ '\n')
@@ -59,26 +59,23 @@ class Chat():
                 for line in file:
                     if line.lower().startswith('question:'):
                         qtext = line.split(":", 1)[1].strip()
-                        output.append({'id': count, 'question': qtext})
+                        output.append({'id': count, 'question': qtext, 'file':chat})
                         count+=1
                         break
         return output
                 
     def getAllText(self, code):
-        folder = os.listdir("data/chats")
+        fp = f"data/chats/{self.user}Chats"
+        folder = os.listdir(fp)
         for f in folder:
             if f == code:
                 file = f
-            else:
-                print(f"{code} has not been found")
+        with open(f"{fp}/{file}",'r') as file:
+            for line in file:
+                print(line)
+            out = file.read()
+        return out
+
                 
-# c = Chat("Peter", True)
-# conv = {'question': 'this is a question', 'answer': 'This is the asnwer'}
-# c.writeToChat(conv,"Cmanywoods?")
-
-# firstCode = c.newChat(conv['question'], conv['answer']) #Writes into cisa
-
-# conv2 = {'question': 'QQQQQQ QQQQ QQQQ', 'answer': 'AAAAAAAA AAAA AAAA'}
-# secCode = c.newChat(conv2['question'], conv2['answer'])
-# c.writeToChat(conv2, secCode) #Is gonna print another entry into secCode
-
+# c = Chat("fittest", False)
+# print(c.getAllText('fisthe.txt'))

@@ -3,7 +3,6 @@ from dotenv import load_dotenv
 from pydantic import BaseModel
 import os
 import dataLoad 
-import time
 
 
 load_dotenv()
@@ -23,13 +22,20 @@ class agent():
         return _context_cache
 
     def query(self,prp, module, chat):
-        start_time = time.time()
         context = self.get_context(module)
         client = genai.Client(api_key=os.getenv('GEMINI_API'))
-        if prp is not None:
+        if prp and module is not None:
             response = client.models.generate_content(
                 model="gemini-2.5-flash",
-                contents=f"Using the context:\n{context}, and the current chat: {chat} answer the users prompt: {prp}. Use the user prompt as 'question'",
+                contents=f"""You are a study assistant for students. Assist them in explaining topics based on their questions.
+                            Use the following context: {context} and,
+                            Previous questions and answers from the current chat: {chat},
+                            to accurately answer a users questions.
+                            Do not repeat the same answers that have been given in {chat}
+                            Structure your output in a neat and easy to read format.
+                            If nessacary, use bullet points and headings.
+                            Users question: {prp}
+                            """,
                 config={
                     "response_mime_type": "application/json",
                     "response_schema": list[QuestAnsw],
@@ -41,8 +47,3 @@ class agent():
             return dict_list
         else:
             print("No input and/or context given")
-            
-        end_time = time.time()
-        elapsed_time = end_time - start_time
-
-        print(f"Prompting and recieving answer: {round(elapsed_time,3)} seconds...")

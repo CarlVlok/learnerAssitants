@@ -1,0 +1,42 @@
+question: What are some essential SQL statements to know?
+answer: Essential SQL statements cover various operations, including data querying, modification, and schema management. Here are some key operations and examples:
+
+*   **Data Querying:**
+    *   `SELECT`: Used to retrieve data from a database.
+        *   **Example:** `SELECT name, age FROM employees WHERE age > 30;`
+
+*   **Data Modification:**
+    *   `INSERT`: Used to add new records to a table.
+    *   `UPDATE`: Used to modify existing records in a table.
+    *   `DELETE`: Used to remove records from a table.
+
+*   **Schema Management:**
+    *   `CREATE TABLE`: Used to create new tables.
+    *   `ALTER TABLE`: Used to modify the structure of an existing table.
+    *   `DROP TABLE`: Used to delete an existing table.
+
+*   **Permissions:**
+    *   `GRANT`: Used to give users access privileges to the database.
+    *   `REVOKE`: Used to remove access privileges from users.
+question: What are some essential SQL statements to know?
+answer: Essential SQL statements cover various operations, including data querying, modification, and schema management. Here are some key operations and examples:
+
+*   **Data Querying:**
+    *   `SELECT`: Used to retrieve data from a database.
+        *   **Example:** `SELECT name, age FROM employees WHERE age > 30;`
+
+*   **Data Modification:**
+    *   `INSERT`: Used to add new records to a table.
+    *   `UPDATE`: Used to modify existing records in a table.
+    *   `DELETE`: Used to remove records from a table.
+
+*   **Schema Management:**
+    *   `CREATE TABLE`: Used to create new tables.
+    *   `ALTER TABLE`: Used to modify the structure of an existing table.
+    *   `DROP TABLE`: Used to delete an existing table.
+
+*   **Permissions:**
+    *   `GRANT`: Used to give users access privileges to the database.
+    *   `REVOKE`: Used to remove access privileges from users.
+question: Give an example of using the Grant statement
+answer: The `GRANT` statement in SQL is used for managing permissions within a relational database. It is one of the key operations for controlling who can access and manipulate data or schema elements. While the provided context does not offer a specific example query for `GRANT`, its role is to define and assign user privileges.

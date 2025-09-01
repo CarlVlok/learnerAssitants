@@ -15,46 +15,58 @@ def mainMenu(module, user, new):
     bot = gc.agent()
     c = chat.Chat(user, new)
     option=''
-    while option!="3":
+    while True:
         print("MAIN MENU\n")
         try:
             option= int(input("[1] NewChat\n[2]ExistingChat\n[3] Exit\nSelect an option: "))
-            if option==1:
-                prompt = ""
-                ans = []
+        except ValueError:
+            print(f"{ValueError}: Enter a number!")
+        if option==1:
+            prompt = ""
+            ans = []
+            prompt = input("Enter your prompt:\n")
+            if prompt!="Exit":
+                response = bot.query(prompt, module,ans)
+                print(f"\nResponse: {response[0]['answer']}")
+                code = c.writeToNewChat(response[0]['question'], response[0]['answer'])
+                ans.append((response[0]['question'], response[0]['answer']))
+                while True:
+                    prompt = input("Enter your prompt:\n")
+                    if prompt!="Exit":
+                        response = bot.query(prompt, module,ans)
+                        print(f"\nResponse: {response[0]['answer']}")
+                        conv = [response[0]['question'], response[0]['answer']]
+                        c.writeToChat(conv, code)
+                        ans.append({"question":response[0]['question'], "answer":response[0]['answer']})
+                    else:
+                        break
+                    
+        elif option==2:
+            prev = c.getAllChatsForMenu()
+            print("Previous chats\n")
+            for i in prev:
+                print(f"[{i['id'] +1}] {i['question']}")
+            print(f"[{len(prev) + 1}] Exit")
+            prevOption = int(input("Select a chat: "))
+            p = prev[prevOption-1]['file']
+            prevContext = [c.getAllText(p)]
+            while True:
                 prompt = input("Enter your prompt:\n")
                 if prompt!="Exit":
-                    response = bot.query(prompt, module,ans)
+                    response = bot.query(prompt, module, prevContext)
                     print(f"\nResponse: {response[0]['answer']}")
-                    code = c.writeToNewChat(response[0]['question'], response[0]['answer'])
-                    ans.append((response[0]['question'], response[0]['answer']))
-                    while True:
-                        prompt = input("Enter your prompt:\n")
-                        if prompt!="Exit":
-                            response = bot.query(prompt, module,ans)
-                            print(f"\nResponse: {response[0]['answer']}")
-                            conv = [response[0]['question'], response[0]['answer']]
-                            c.writeToChat(conv, code)
-                            ans.append((response[0]['question'], response[0]['answer']))
-                        else:
-                            break
-                        
-            elif option==2:
-                prev = c.getAllChatsForMenu()
-                print("Previous chats\n")
-                for i in prev:
-                    print(f"[{i['id'] +1}] {i['question']}")
-                print(f"[{len(prev) + 1}] Exit")
-                prevOption = input("Select a chat: ")
-                
-                
-            elif option==3:
-                break
-            else:
-                return "Unexpected error occured, please try again"    
+                    conv = [response[0]['question'], response[0]['answer']]
+                    c.writeToChat(conv, p)
+                    prevContext.append({"question":response[0]['question'], "answer":response[0]['answer']})
+                else:
+                    break
+        elif option==3:
+            print('Exitting...')
+            break
+        else:
+            return "Unexpected error occured, please try again"    
             
-        except ValueError:
-            print("Enter a number!")
+        
 
 
 

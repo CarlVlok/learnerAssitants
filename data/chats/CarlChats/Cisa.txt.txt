@@ -1,0 +1,4 @@
+question: What is the difference between a void method and a value method?
+answer: A void method does not return a value and typically performs an action, such as printing output or modifying data. In contrast, a value method declares a specific return type (e.g., double) and must use at least one return statement to provide a value of that declared type.
+question: what was my previous question
+answer: What is the difference between a void method and a value method?
