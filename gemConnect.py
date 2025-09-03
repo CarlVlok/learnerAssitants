@@ -43,7 +43,7 @@ class agent():
             )
             output: list[QuestAnsw] = response.parsed
             dict_list = [m.model_dump() for m in output]
-            print("Succesfully prompted and recieved a response...")
+            # print("Succesfully prompted and recieved a response...")
             return dict_list
         else:
             print("No input and/or context given")

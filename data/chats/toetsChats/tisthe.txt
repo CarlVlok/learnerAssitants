@@ -1,0 +1,8 @@
+question: What is the SDLC?
+answer: The Systems Development Life Cycle (SDLC) is a structured process used by systems analysts to create information systems. It's a methodology applied to enhance existing systems or implement new ones. The process moves through a series of stages, aiming to produce a high-quality and efficient information system.
+
+**Stages of the SDLC:**
+*   **Stage 1: System planning and selection:** This involves evaluating system requests, prioritizing development projects, defining project scope, and conducting feasibility analyses (often including SWOT analysis).
+*   **Stage 2: System Analysis:** In this phase, analysts examine the existing system to understand issues and develop logical models that define *what* the new system should accomplish, gathering and structuring requirements from stakeholders.
+*   **Stage 3: System Design:** This stage translates requirements into a detailed blueprint. It involves creating both logical design (what the system should do) and physical design (how it will be implemented), including technical specifications and user interfaces. Prototypes may be created to gather stakeholder feedback.
+*   **Stage 4: System Implementation and Operation:** The system is developed and coded based on design specifications. This includes rigorous testing, end-user training, providing system documentation (like user manuals), and executing a conversion plan for a smooth transition to the new system.

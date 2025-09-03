@@ -1,2 +1,0 @@
-question: What is a void method?
-answer: A void method is a method that does not return any value, not even zero. Its return type is specified as 'void'. These methods typically perform actions such as printing output or modifying data, and they do not require a return statement.

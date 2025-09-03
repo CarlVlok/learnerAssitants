@@ -21,6 +21,8 @@ class dataLoad():
             return "data/modules/SEN152"
         elif mod=="TAS152":
             return "data/modules/TAS152"
+        else:
+            return False
     
     def getPresText(self, file_path):
         prs = Presentation(file_path)
@@ -97,9 +99,12 @@ class dataLoad():
         end_time = time.time()
         elapsed_time = end_time - start_time
 
-        print(f"-----Loading All data time: {round(elapsed_time,3)} seconds...-----")
+        # print(f"-----Loading All data time: {round(elapsed_time,3)} seconds...-----")
         return ppt, pdf
     
-    
+    def getModules(self):
+        folder = "data/modules"
+        files = [f for f in os.listdir(folder) if f != ".DS_Store"]
+        return files
 
 

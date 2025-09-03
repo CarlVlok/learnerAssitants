@@ -45,24 +45,27 @@ class Chat():
     
     def getAllCodes(self):
         codes = os.listdir(self.workingDirec)
-        return codes
+        if codes != None:
+            return codes
+        return False
     
     def getAllChatsForMenu(self):
         chats = self.getAllCodes()
-        if len(chats) == 0:
-            return "Cannot find any previous chats"
-        count = 0
-        fp = f"data/chats/{self.user}Chats/"
-        output = []
-        for chat in chats:
-            with open((fp+chat), 'r') as file:
-                for line in file:
-                    if line.lower().startswith('question:'):
-                        qtext = line.split(":", 1)[1].strip()
-                        output.append({'id': count, 'question': qtext, 'file':chat})
-                        count+=1
-                        break
-        return output
+        if chats!=False:
+            if len(chats) == 0:
+                return False
+            count = 0
+            fp = f"data/chats/{self.user}Chats/"
+            output = []
+            for chat in chats:
+                with open((fp+chat), 'r') as file:
+                    for line in file:
+                        if line.lower().startswith('question:'):
+                            qtext = line.split(":", 1)[1].strip()
+                            output.append({'id': count, 'question': qtext, 'file':chat})
+                            count+=1
+                            break
+            return output
                 
     def getAllText(self, code):
         fp = f"data/chats/{self.user}Chats"
