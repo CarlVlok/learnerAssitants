@@ -3,6 +3,10 @@ import os
 
 
 class Chat():
+    """
+    Initializing Chat, using the users session name and whether its a new session
+    This class handles anything to do with textfiles, and specific session information
+    """
     def __init__(self, user, new):
         self.user = user
         if new==True:

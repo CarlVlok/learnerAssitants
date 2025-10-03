@@ -54,7 +54,7 @@ def mainMenu(module, user, new):
             print(f"{ValueError}: Enter a number!")
         if option==1:
             prompt = ""
-            ans = []
+            ans = [] 
             prompt = input("Enter your prompt: ")
             if prompt!="Exit":
                 response = bot.query(prompt, module,ans)
