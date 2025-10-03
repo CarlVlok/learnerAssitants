@@ -34,6 +34,7 @@ class agent():
                             Do not repeat the same answers that have been given in {chat}
                             Structure your output in a neat and easy to read format.
                             If nessacary, use bullet points and headings.
+                            The response should be neatly formatted in text format to look nice in a chat
                             Users question: {prp}
                             """,
                 config={
